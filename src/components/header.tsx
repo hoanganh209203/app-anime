@@ -1,14 +1,15 @@
 
 import React from 'react';
 import { menu } from '../interface/product';
+import { TbLogin } from "react-icons/tb";
 
 type Props = {
     title: string
     logo: string
-    menu:menu[]
+    menu: menu[]
 }
 
-const Header = (Props:Props) => {
+const Header = (Props: Props) => {
     return (
         <nav className="bg-black">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -30,10 +31,10 @@ const Header = (Props:Props) => {
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                               {Props.menu.map(item=>(
-                                 <a href={item.path} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">{item.title}</a>
-                               ))}
-               
+                                {Props.menu.map(item => (
+                                    <a href={item.path} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">{item.title}</a>
+                                ))}
+
 
                             </div>
                         </div>
@@ -60,16 +61,8 @@ const Header = (Props:Props) => {
                             </svg>
                         </button>
 
-                        <div className="relative ml-3">
-                            <div>
-                                <button type="button" className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                    <span className="absolute -inset-1.5"></span>
-                                    <span className="sr-only">Open user menu</span>
-                                    <img className="h-8 w-8 rounded-full" src="https://ih1.redbubble.net/image.3339583435.4243/st,small,845x845-pad,1000x1000,f8f8f8.jpg" alt="" />
-                                </button>
-                            </div>
+                    
 
-                        </div>
                     </div>
                 </div>
             </div>

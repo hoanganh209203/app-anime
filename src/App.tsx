@@ -21,10 +21,10 @@ function App() {
     path: "/", title: "Top Anime"
   },
   {
-    path: "/", title: "SEASON"
+    path: "/", title: "Lịch Chiếu"
   },
   {
-    path: "/", title: "Lịch Chiếu"
+    path: "/", title: "Đăng Nhập"
   },
 
   ];
@@ -62,6 +62,12 @@ function App() {
       "name": "Black Clover (TV)",
       "image": "https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/e108ae17d8d0407417cac40eb52d849a.jpe",
       "view": 61718320,
+      "rating":5
+    }, {
+      "id":" 6",
+      "name": "Pháp Sư Tiễn Táng Frieren",
+      "image": "https://img-zlr1.tv360.vn/image1/2023/11/06/23/43f64be6/43f64be6-59b5-4292-8466-45e9e2f116d8_640_360.jpg",
+      "view": 7573368 ,
       "rating":5
     },
   ]

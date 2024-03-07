@@ -3,7 +3,8 @@ import { time } from "console";
 import { title } from "process";
 import productType from "../interface/product";
 import AddToCart from "./addtocart";
-import { FaStar } from "react-icons/fa";
+
+
 type Props = {
     products: productType[]
 }
@@ -26,7 +27,6 @@ const Products = (Props: Props) => {
                                 <img src={item.image} alt="Front of men&#039;s Basic Tee in black." className="h-full w-full object-cover object-center lg:h-full lg:w-full
                                   opacity-100 transition-opacity group-hover:opacity-70" />
                                 <div className="absolute top-0 left-0 mt-2 ml-2">
-                               
                                     {[...Array(5)].map((_, index) => (
                                         <svg key={index} className={`w-4 h-4 fill-current text-yellow-500 ${index < item.rating ? 'opacity-100' : 'opacity-25'}`} viewBox="0 0 20 20">
                                             <path d="M10 0l2.44 6.51L20 7.39l-5.51 4.5L17.06 20 10 16.24 2.94 20 5.51 11.89 0 7.39l7.56-.88z" />
