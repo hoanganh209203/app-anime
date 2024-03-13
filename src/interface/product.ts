@@ -1,17 +1,16 @@
 export default interface productType {
-    id: string;
-    name: string;
-    price: number;
     images: {
-       path: string;
-       _id: string;
-    }
-    view?: number;
-    rating?: number;
+    path: string
+      },
+      _id: string,
+      name: string,
+      price: number,
+      description:string,
+      categoryId?: string,
 }
 
 
 export type menu = {
-    path: string,
+    slug: string,
     title: string
 }
