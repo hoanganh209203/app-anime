@@ -2,9 +2,9 @@ import React from 'react'
 import ProductSlideshow from '../../components/slideshow'
 import ListProduct from './listProduct'
 
-type Props = {}
 
-const Homepage = (props: Props) => {
+
+const Homepage = () => {
   return (
     <>
     <ProductSlideshow/>

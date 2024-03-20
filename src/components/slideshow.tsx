@@ -3,41 +3,53 @@ import React, { useState } from 'react';
 
 const ProductSlideshow = () => {
     return (
-        <div className="relative">
-<div className="grid grid-rows-1 grid-cols-5 gap-0">
-  <div className=''>
-  <div className="col-span-1">
-    <img src="https://cdn.9pay.vn/tin-tuc/blobid1698726897012-1698726914.png" alt="Side Image 1" className="w-full h-[142px]"/>
-  </div>
-  <div className="col-span-1">
-    <img src="https://assetsio.reedpopcdn.com/naruto-new-episodes.jpg?width=1200&height=630&fit=crop&enable=upscale&auto=webp" alt="Side Image 2" className="w-full h-[142px]"/>
-  </div>
-  <div className="col-span-1">
-    <img src="https://hnm.1cdn.vn/2024/03/08/db.jpg" alt="Side Image 2" className="w-full h-[142px]"/>
-  </div>
-  </div>
-  <div className="col-span-3">
-    <img src="https://www.crunchyroll.com/imgsrv/display/thumbnail/1200x675/catalog/crunchyroll/a249096c7812deb8c3c2c907173f3774.jpe" alt="Main Image" className="w-full"/>
-  </div>
- <div>
- <div className="col-span-1">
-    <img src="https://photo-cms-baophapluat.epicdn.me/w840/Uploaded/2024/gznrxgmabianhgzmath/2022_05_30/doraemon-9528.jpg" alt="Side Image 3" className="w-full h-[142px]"/>
-  </div>
-  <div className="col-span-1">
-    <img src="https://gamek.mediacdn.vn/133514250583805952/2020/5/16/https-2f2fs3-ap-southeast-2amazonawscom2fvms-tv-images-prod2f20172f102f1013172fpokepokemon1920-158964792996424270108.jpg" alt="Side Image 4" className="w-full h-[142px]"/>
-  </div>
-  <div className="col-span-1">
-    <img src="https://cdn.popsww.com/blog/sites/2/2023/07/conan-movie-24.jpg" alt="Side Image 4" className="w-full h-[142px]"/>
-  </div>
- </div>
-</div>
+      <>
+      <div className="mx-auto container my-28 grid grid-cols-2 gap-20">
+      <h1 className="text-[56px] leading-[66px]">
+        Transform Your Home <br />
+        with Our Stunning <br />
+        <span className="font-bold">Furniture Collection</span>
+      </h1>
+      <div>
+        <p className="text-lg text-justify">
+          Welcome to our furniture store, where we believe that a well-furnished
+          home is a happy home. We offer a wide selection of high-quality
+          furniture for every room in your home, from cozy sofas and elegant
+          dining sets to stylish office desks and comfortable beds.
+        </p>
+        <div className="flex items-center gap-4 mt-10">
+          <button
+            className="py-3 px-6 border border-black rounded bg-black text-white"
+          >
+            Shop Now
+          </button>
+          <button className="py-3 px-6 border border-black rounded">
+            Learn More
+          </button>
+        </div>
+      </div>
+      <div className="col-span-2">
+        <img src="banner.png" alt="" />
+      </div>
+    </div>
 
-  <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50">
-    <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Đắm chìm trong thế giới anime</h2>
-    <p className="text-white text-lg md:text-xl lg:text-2xl mb-8">Hàng ngàn bộ anime mới và cũ đang chờ bạn khám phá.</p>
-    <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none">Xem phim</button>
-  </div>
-</div>
+
+    <div className="container mx-auto">
+      <div className="flex items-end justify-between">
+        <div>
+          <h2 className="text-5xl font-bold">Featured Products</h2>
+          <p className="text-lg my-4">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </p>
+        </div>
+        <div>
+          <button className="py-3 px-6 border border-black rounded">
+            View all
+          </button>
+        </div>
+      </div>
+      </div>
+      </>
       );
     
 }

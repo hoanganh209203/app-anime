@@ -1,12 +1,23 @@
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Outlet } from "react-router-dom";
-import { menu } from "../interface/product";
-
+import { createContext, useReducer, useState } from "react";
+import Login from "../components/user/login";
+import Register from "../components/user/register";
+export const CountCT = createContext([] as any) ;
 const Layout = () => {
-    
-
-    // const menu: menu[] = [{
+    // const [count , setCount] = useState(0)
+    const reducer = (state:any,action:any) =>{
+        switch(action.type){
+            case 'login':
+                return <Login/>
+            break
+            case 'register':
+                return <Register/>
+            default:
+                return (<></>)
+    }
+    }
     //     slug: "/", title: "Trang Chủ"
     //   },
     //   {
@@ -26,15 +37,17 @@ const Layout = () => {
     //   },
     
     //   ];
+    const [state, setState] = useReducer(reducer,(<></>));
+    console.log(state);
+    
     return (
-        <div>
+        <>
+        <CountCT.Provider value={[state,setState]}>
         <Header menu={[]}/>
-        <div>
             <Outlet/>
-        </div>
         <Footer/>
-        </div>
-
+        </CountCT.Provider>
+        </>
     )
 }
 
