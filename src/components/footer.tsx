@@ -5,7 +5,6 @@ import { CountCT } from "../layouts/layout";
 const Footer = () => {
   const [state, setState] = useContext(CountCT) as any
   console.log(state);
-  
   return (
     <footer className="py-20">
       {state}

@@ -18,27 +18,8 @@ const Layout = () => {
                 return (<></>)
     }
     }
-    //     slug: "/", title: "Trang Chủ"
-    //   },
-    //   {
-    //     slug: "/products", title: "Product"
-    //   },
-    //   {
-    //     slug: "/", title: "Thư Viện"
-    //   },
-    //   {
-    //     slug: "/", title: "Top Anime"
-    //   },
-    //   {
-    //     slug: "/", title: "Lịch Chiếu"
-    //   },
-    //   {
-    //     slug: "/", title: "Đăng Nhập"
-    //   },
-    
-    //   ];
+  
     const [state, setState] = useReducer(reducer,(<></>));
-    console.log(state);
     
     return (
         <>

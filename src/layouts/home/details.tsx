@@ -14,13 +14,10 @@ const Details = (_props: Props) => {
   const [product, setProduct] = useState<productType | null>(null);
   useEffect(() => {
     const id: string = params.id;
-    console.log(id);
-
     fetch(`http://localhost:8000/products/${id}`)
       .then(response => response.json())
       .then(data => {
         setProduct(data)
-        console.log(data);
       }).catch(error => {
         console.log(error);
       })
