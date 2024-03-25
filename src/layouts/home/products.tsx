@@ -7,17 +7,17 @@ const formatNumber = (number: { toString: () => string; }) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 const ProductPage = (props: Props) => {
+
     const [products, setProductData] = useState([])
     useEffect(() => {
         fetch(`http://localhost:8000/products`)
             .then((res) => res.json())
             .then((data) => {
                 setProductData(data);
+                console.log(data);
+                
             });
     }, []);
-
-
-
     //?skip=${(page-1)*9}&limit=9 
     return (
         <div className="">
@@ -29,13 +29,13 @@ const ProductPage = (props: Props) => {
                     {products.map((item: productType) => (
                         <div className="flex flex-col gap-4">
                             <div className='relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80'>
-                                <NavLink to={'details/' + item.id}>
+                                <NavLink to={'/details/'+ item.id}>
                                     <img src={item.thumbnail} className="h-7 w-6 object-cover object-center lg:h-full lg:w-full opacity-100 transition-opacity group-hover:opacity-70" />
                                 </NavLink>
                             </div>
                             <div>
                                 <div className="flex items-center justify-between">
-                                    <NavLink to={'details/' + item.id}>
+                                    <NavLink to={'/details/'+item.id}>
                                         <h4 className="text-lg font-semibold">{item.title}
                                         </h4>
                                     </NavLink>

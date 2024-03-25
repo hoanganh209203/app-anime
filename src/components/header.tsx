@@ -10,6 +10,9 @@ import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { MdLanguage } from "react-icons/md";
 import { CiUser } from "react-icons/ci";
+import { CiHeart } from "react-icons/ci";
+import { CiShoppingCart } from "react-icons/ci";
+import { CiBellOn } from "react-icons/ci";
 type Props = {
   // title: string
   menu: menu[]
@@ -47,10 +50,12 @@ const Header = (Props: Props) => {
         </div>
       </div>
       <nav className="flex justify-between p-4 ml-9 mr-9">
-        <div className="flex justify-between items-center mr-96">
+        <div className="flex justify-between items-center mr-94">
           <img src="Frame 1.png" alt="" />
           <h1>Ddsgnr</h1>
         </div>
+        <div className='flex gap-2'>
+
         <ul className="flex justify-between items-center gap-9 mr-6">
           <li><Link className="border-b-2 border-black p-2" to="/">Home</Link></li>
           <li><Link to="">About</Link></li>
@@ -58,20 +63,24 @@ const Header = (Props: Props) => {
           <li><Link to="">Services</Link></li>
           <li><Link to="">Contact</Link></li>
         </ul>
+        <div className="flex justify-center items-center gap-3">
+
         <div className="gap-6">
           <input className="border-2 border-black rounded-sm h-10 w-36 p-2 mr-4" type="search" placeholder="Search" />
         </div>
-        <div className="gap-9">
-          <img className="w-3 h-5" src="heart.256x225.png" alt="" />
+        <div className="flex flex-col items-center">
+        <CiHeart />
           Wishlist
         </div>
-        <div className="gap-9">
-          <img className="w-3 h-5" src="shopping-cart.251x256.png" alt="" />
+        <div className="flex flex-col items-center">
+        <CiShoppingCart />
           Cart
         </div>
-        <div className="gap-9">
-          <img className="w-3 h-5" src="bell.219x256.png" alt="" />
+        <div className="flex flex-col items-center">
+        <CiBellOn />
           Notification
+        </div>
+        </div>
         </div>
       </nav>
 
