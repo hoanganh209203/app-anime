@@ -10,6 +10,7 @@ import TemlateDemo from './components/demo';
 import './App.css'
 import ProductList from './layouts/admins/ProductList';
 import ProductAdd from './layouts/admins/ProductAdd';
+import UpdateProduct from './layouts/admins/UpdateProduct';
 function App() {
 
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path='admin' Component={Dashboard}>
       <Route index Component={ProductList}></Route>
       <Route path='add' Component={ProductAdd}></Route>
+      <Route path='edit/:id' Component={UpdateProduct}></Route>
       </Route>
     </Routes>
   );

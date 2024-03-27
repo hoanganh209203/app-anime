@@ -23,7 +23,7 @@ const ListProduct = () => {
     //?skip=${(page-1)*9}&limit=9 
     return (
         <>
-        <div className="grid grid-cols-4 gap-8 mt-8">
+        <div className="grid grid-cols-4 gap-8 mt-8 container">
             {products.map((item: productType) => (
                 <div className="flex flex-col gap-4" key={item.id}>
                     <div className='relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80'>
@@ -47,6 +47,8 @@ const ListProduct = () => {
             
             <button onClick={() => setPage(page - 1)} className='border mt-5'>Previous Page</button>
             <button onClick={() => setPage(page + 1)} className='border mt-5'>Next Page</button>
+
+
             </>
 
     )

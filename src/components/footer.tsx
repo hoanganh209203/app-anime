@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="py-20">
       {state}
-      <div className="flex justify-between">
+      <div className="flex justify-between container">
         <div className="grid grid-cols-4 gap-10">
           <div className="flex gap-3">
             <svg
