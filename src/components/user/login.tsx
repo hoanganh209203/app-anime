@@ -1,21 +1,57 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { IoClose } from "react-icons/io5";
 import { CountCT } from '../../layouts/layout';
+import { UserLogin } from '../../services/auth';
+import { json } from 'stream/consumers';
+import { Navigate, useNavigate } from 'react-router-dom';
 const Login = () => {
   const [state, setState] = useContext(CountCT) as any
+  const [email,setEmail] = useState<string>('')
+  const [password,setPassword] = useState<string>('')
+  const navigate = useNavigate()
+  const handleSubmit = async (e:any)=>{
+
+    e.preventDefault()
+    try {
+      const user = await UserLogin({ email, password });
+      // console.log(user);
+      
+      if (user?.name==="AxiosError"){
+        alert(user.response.data)
+      }
+      else {
+        sessionStorage.setItem("user",JSON.stringify(user))
+        console.log(user);
+        
+        alert('Đăng nhập thành công')
+        if(user.user.role == 'member'){
+          navigate('/')
+        }else{
+          navigate('/admin')
+        }
+      }
+    } catch (error) {
+      alert((error as Error)?.message);
+    }
+  };
   return (
     <div className='bg-overlay'>
 
-      <form className="max-w-sm mx-auto border w-[500px]">
+      <form className="max-w-sm mx-auto border w-[500px]" onSubmit={handleSubmit}>
        <button type='button' onClick={()=>setState('')}><IoClose/></button>
         <h2 className='text-center'>Đăng Nhập</h2>
         <div className="mb-5">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Your email</label>
-          <input type="email" id="email" className="bg-while border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-while dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
+          <input 
+          onChange={(e:any)=>{setEmail(e.target.value)}}
+          type="email" id="email" className="bg-while border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-while dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
         </div>
         <div className="mb-5">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Your password</label>
-          <input type="password" id="password" className="bg-while border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-bg-while dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+          <input 
+          onChange={(e:any)=>{setPassword(e.target.value)}}
+          type="password" id="password" 
+          className="bg-while border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-bg-while dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
         </div>
         <div className="flex items-start mb-5">
           <div className="flex items-center h-5">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import productType from "../../interface/product";
 import { useParams } from "react-router-dom";
+import { getProductByID } from "../../services/products";
 
 
 type Props = {
@@ -16,13 +17,10 @@ const Details = (_props: Props) => {
     const id: string = params.id;
     console.log(id);
     
-    fetch(`http://localhost:8000/products/${id}`)
-      .then(response => response.json())
-      .then(data => {
-        setProduct(data)
-      }).catch(error => {
-        console.log(error);
-      })
+    (async()=>{
+      const product:productType = await getProductByID(id);
+      setProduct(product);
+   })();
 
   }, [])
   return (
@@ -88,7 +86,7 @@ const Details = (_props: Props) => {
                     </div>
                   </div>
                   <div className="w-[1px] h-4 bg-black/50"></div>
-                  <span className="text-green-400">{product?.category}</span>
+                  <span className="text-green-400">{product?.category?.name}</span>
                 </div>
                 <div className="text-2xl mb-6">
                   <span>{product?.price}</span>

@@ -29,19 +29,19 @@ const ProductPage = (props: Props) => {
                     {products.map((item: productType) => (
                         <div className="flex flex-col gap-4">
                             <div className='relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80'>
-                                <NavLink to={'/details/'+ item.id}>
+                                <Link to={'/details/'+ item._id}>
                                     <img src={item.thumbnail} className="h-7 w-6 object-cover object-center lg:h-full lg:w-full opacity-100 transition-opacity group-hover:opacity-70" />
-                                </NavLink>
+                                </Link>
                             </div>
                             <div>
                                 <div className="flex items-center justify-between">
-                                    <NavLink to={'/details/'+item.id}>
+                                    <Link to={'/details/'+item._id}>
                                         <h4 className="text-lg font-semibold">{item.title}
                                         </h4>
-                                    </NavLink>
+                                    </Link>
                                     <p>{item.price}</p>
                                 </div>
-                                <p>{item.category}</p>
+                                <p>{item.category?.name}</p>
                             </div>
                             <button className="w-full py-2 rounded border border-black">
                                 Add to cart

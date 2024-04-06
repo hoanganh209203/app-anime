@@ -1,15 +1,18 @@
 export default interface productType {
-    id:number
+    _id?: number
     title: string,
     description: string,
     price: number,
-    discountPercentage: number,
-    rating: number,
-    stock:number,
-    brand: string,
-    category: string,
+    discountPercentage?: number,
+    rating?: number,
+    stock?: number,
+    brand?: string,
+    category?: {
+        _id: string,
+        name: string,
+    },
     thumbnail: string,
-    images: string[]
+    images?: string[]
 }
 
 

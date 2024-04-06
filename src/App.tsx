@@ -11,8 +11,18 @@ import './App.css'
 import ProductList from './layouts/admins/ProductList';
 import ProductAdd from './layouts/admins/ProductAdd';
 import UpdateProduct from './layouts/admins/UpdateProduct';
+import PrivateRouter from './PrivateRouter';
 function App() {
-
+  let userLogin = false;
+  let userinfo = sessionStorage.getItem("user")
+    userinfo = JSON.parse(userinfo as any) 
+    console.log(userinfo);     
+    if (userinfo===null) {
+      userLogin = false
+    }
+    else {
+      userLogin = true
+    }
   return (
     <Routes>
       <Route path='/' Component={Layout}>
@@ -21,7 +31,7 @@ function App() {
         <Route path='demo' Component={TemlateDemo}></Route>
         <Route path='products' Component={ProductPage}></Route>
       </Route>
-      <Route path='admin' Component={Dashboard}>
+      <Route path='admin' element={<PrivateRouter user={userLogin}><Dashboard/></PrivateRouter>}>
       <Route index Component={ProductList}></Route>
       <Route path='add' Component={ProductAdd}></Route>
       <Route path='edit/:id' Component={UpdateProduct}></Route>
