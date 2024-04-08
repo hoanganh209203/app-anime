@@ -76,7 +76,7 @@ const Header = (Props: Props) => {
           <li><Link className="border-b-2 border-black p-2" to="/">Home</Link></li>
           <li><Link to="">About</Link></li>
           <li><Link to="/products">Products</Link></li>
-          <li><Link to="">Services</Link></li>
+          <li><Link to="/category">Category</Link></li>
           <li><Link to="">Contact</Link></li>
         </ul>
         <div className="flex justify-center  gap-3">

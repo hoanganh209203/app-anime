@@ -12,6 +12,7 @@ import ProductList from './layouts/admins/ProductList';
 import ProductAdd from './layouts/admins/ProductAdd';
 import UpdateProduct from './layouts/admins/UpdateProduct';
 import PrivateRouter from './PrivateRouter';
+import Category from './layouts/home/Category';
 function App() {
   let userLogin = false;
   let userinfo = sessionStorage.getItem("user")
@@ -26,10 +27,13 @@ function App() {
   return (
     <Routes>
       <Route path='/' Component={Layout}>
-        <Route path='' Component={Homepage}></Route>
+        <Route index Component={Homepage}></Route>
         <Route path='details/:id' Component={Details}></Route>
+        <Route path='products/details/:id' Component={Details}></Route>
+        <Route path='category/details/:id' Component={Details}></Route>
         <Route path='demo' Component={TemlateDemo}></Route>
         <Route path='products' Component={ProductPage}></Route>
+        <Route path='category' Component={Category}/>
       </Route>
       <Route path='admin' element={<PrivateRouter user={userLogin}><Dashboard/></PrivateRouter>}>
       <Route index Component={ProductList}></Route>
