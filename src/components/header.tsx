@@ -55,7 +55,7 @@ const Header = (Props: Props) => {
               <p>English</p>
             </div>
             <div className="flex justify-between items-center gap-2">
-            <Link to={'admin'}><CiUser /></Link>
+            <Link to={'/admin'}><CiUser /></Link>
               <>
                 <button type="button" onClick={() => { setState({ type: 'login' }) }}>Login</button>
                 <button type="button" onClick={() => { setState({ type: 'register' }) }}>Register</button>

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const ProductSlideshow = () => {
     return (
       <>
-      <div className="mx-auto container my-28 grid grid-cols-2 gap-20">
+      <div className="mx-auto container grid grid-cols-2 gap-20">
       <h1 className="text-[56px] leading-[66px]">
         Transform Your Home <br />
         with Our Stunning <br />
