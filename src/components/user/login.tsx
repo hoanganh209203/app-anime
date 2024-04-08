@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { CountCT } from '../../layouts/layout';
 import { UserLogin } from '../../services/auth';
 import { json } from 'stream/consumers';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [state, setState] = useContext(CountCT) as any
   const [email,setEmail] = useState<string>('')
@@ -27,7 +27,7 @@ const Login = () => {
         if(user.user.role == 'member'){
           navigate('/')
         }else{
-          navigate('/admin')
+          navigate('admin')
         }
       }
     } catch (error) {

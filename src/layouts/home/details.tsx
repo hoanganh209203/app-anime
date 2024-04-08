@@ -53,7 +53,7 @@ const Details = (_props: Props) => {
                 className="flex justify-center items-center w-[500px] bg-[#F5F5F5]"
               >
                 <img
-                  className="w-[446px] h-[315px]"
+                  className="w-[446px] h-[460px]"
                   src={product?.thumbnail}
                   alt=""
                 />

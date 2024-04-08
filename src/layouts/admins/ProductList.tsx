@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import productType from '../../interface/product'
-import { Link, NavLink } from 'react-router-dom'
-import { getAllProduct } from '../../services/products'
+import { Link } from 'react-router-dom'
+import { DeleteProduct, getAllProduct } from '../../services/products'
 import { Button, Popconfirm } from 'antd'
 
 const ProductList = () => {
-  const confirm = () => {
-    console.log();
-  };
-
-  const cancel = () => {
-    console.log();
-  };
+  
   const [products, setProducts] = useState<productType[]>([])
   console.log(products);
 
@@ -21,6 +15,20 @@ const ProductList = () => {
       setProducts(products);
     })();
   }, [])
+
+  const delProduct = async(_id:string) =>{
+    let mess = window.confirm('Are you sure?')
+    if(mess){
+       try {
+        await DeleteProduct(_id)
+        const Product = products.filter((Product:productType) => Product._id !== _id)
+        setProducts(Product)
+       } catch (error) {
+        console.log(error);
+       }
+    }
+}
+
   return (
     <div className="overflow-x-auto">
       <Link className="mb-3" to="/admin/add">
@@ -78,12 +86,17 @@ const ProductList = () => {
                 <Popconfirm
                   title="Delete the task"
                   description="Are you sure to delete this task?"
-                  onConfirm={confirm}
-                  onCancel={cancel}
+                  onConfirm={() => DeleteProduct(item._id as string)}
                   okText="Yes"
                   cancelText="No"
+                  okType={"danger"}
                 >
-                  <Button danger>Delete</Button>
+                  <button
+                    type="button"
+                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                  >
+                    Delete
+                  </button>
                 </Popconfirm>
               </td>
             </tr>

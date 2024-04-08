@@ -32,8 +32,8 @@ console.log(products);
                     </div>
                     <div>
                         <div className="flex items-center justify-between">
-                            <Link to={'details/' + item._id}><h4 className="text-lg font-semibold">{item.title}</h4></Link>
-                            <p>{item.price}</p>
+                            <Link to={'details/' + item._id}><h4 className="text-lg font-semibold truncate text-container w-48 overflow-hidden whitespace-nowrap">{item.title}</h4></Link>
+                            <p>${item.price}</p>
                         </div>
                         <p>{item.category?.name}</p>
                     </div>

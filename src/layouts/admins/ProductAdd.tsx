@@ -1,102 +1,198 @@
-import { useEffect, useState } from 'react'
-import productType from '../../interface/product';
-import { ProductJoiObj } from '../../validations/products';
-import { addProduct, getAllProduct } from '../../services/products';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { CategoryType } from '../../interface/categorise'
+import { FormProduct } from '../../interface/formProduct'
+import { ErrorFormProduct } from '../../interface/errorsForm'
+import productValidate from '../../validations/products'
 
-const ProductAdd = () => {
-  const [title, setTitle] = useState<string>('');
-  const [thumbnail, setThumnail] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [price, setPrice] = useState<number>(0);
-  const [category, setCategory] = useState<string>('');
-  const [message,setMessage]=useState<string>('')
-  const [Products,setProduct]=useState<productType[]>([])
-  // const onSubmit = (e: any) => {
-  //   e.preventDefault();
-  //   const data = {
-  //     title: title,
-  //     thumbnail: images,
-  //     description: description,
-  //     price: price,
-  //     category: category
-  //   };
-  
-    const handleSubmit = async (e:any)=>{
-      try {
-      e.preventDefault()
-      const {error} = ProductJoiObj.validate({title,thumbnail,price})
-      // 
-      if (error){
-          setMessage(error.message)
-      }
-      else {
-          const product = await addProduct({title,price,description,thumbnail})
-          const newproducts = [...Products,product]
-              setProduct(newproducts)
-              setTitle('')
-              setThumnail('')
-              setPrice(0)
-              setDescription('')
-              setCategory('')
-      }
-  } catch (error) {
-         console.log(error);            
-  }
-  }
-  return (
-<>
-{message}
-<form className="font-[sans-serif] text-[#333] max-w-4xl mx-auto px-6 my-6" onSubmit={handleSubmit}>
-  <div className="grid sm:grid-cols-2 gap-10">
-    <div className="relative flex items-center">
-      <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Name</label>
-      <input type="text" onChange={(e: any) => { setTitle(e.target.value) }}
-        value={title} placeholder="Enter name product" className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none" />
-      
-    </div>
-    <div className="relative flex items-center">
-      <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Price</label>
-      <input type="price"
-      value={price}
-      onChange={(e: any) => { setPrice(e.target.value) }}
-       placeholder="Enter price product" className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none" />
-      
-    </div>
-    <div className="relative flex items-center">
-    <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Cate</label>
-           <select onChange={(e: any) => { setCategory(e.target.value) }} className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none"
-           value={category}>
-             <option>Laptop</option>
-             <option>Ipad</option>
-            <option>Iphone</option>
-           <option>Samsung</option>
-            <option>Chuot khong day</option>
-          </select>
-    </div>
-    <div className="relative flex items-center">
-      <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">Image</label>
-      <input 
-      type="text"
-      value={thumbnail}
-      onChange={(e: any) => { setThumnail(e.target.value) }}
-       placeholder="Enter image product" className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none" />
-    </div>
+const AddProduct = () => {
+  const navgate = useNavigate()
+  const [category , setCategory] = useState<CategoryType[]>([])
+  useEffect(()=>{
+    axios.get(`https://nodejs-fe.vercel.app/category`)
+    .then((response) =>{
+      setCategory(response.data)
+    })
     
-    <div className="relative flex items-center sm:col-span-2">
-      <label className="text-[13px] absolute top-[-10px] left-0 font-semibold">MO TA</label>
-      <input 
-      type="text"
-      value={description}
-      onChange={(e: any) => { setDescription(e.target.value) }}
-      placeholder="Enter description product " className="px-2 pt-5 pb-2 bg-white w-full text-sm border-b-2 border-gray-100 focus:border-[#333] outline-none" />
-      
-    </div>
-  </div>
-  <button className="mt-10 px-2 py-2.5 w-full rounded text-sm font-semibold bg-[#333] text-white hover:bg-[#222]">Submit</button>
-</form>
+  },[]);
 
-</>
+  const [addForm, setAddForm] = useState<FormProduct>({
+    title: '',
+    description: '',
+    price: 0,
+    discountPercentage: 0,
+    rating: 0,
+    stock: 0,
+    brand: '',
+    category:'',
+    thumbnail: '',
+    images: []
+  })
+  console.log(addForm);
+  
+  const [errorForm, setErrorForm] = useState<ErrorFormProduct>({})
+
+  const handlChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+
+    if (name === "images") {
+      const imagesArray = value.split(/[\n,]+/);
+
+      // Cập nhật state addForm với mảng mới
+      setAddForm(prevState => ({
+        ...prevState,
+        [name]: imagesArray
+      }));
+    } else {
+
+      setAddForm({
+        ...addForm,
+        [name]: value
+      })
+    }
+  }
+  const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+
+    e.preventDefault();
+
+    const { errorMessage } = productValidate(addForm);
+    if (errorMessage) {
+      setErrorForm(errorMessage);
+      return;
+    }
+
+    axios.post('https://nodejs-fe.vercel.app/products', addForm)
+      .then(() => {
+        alert("Created product successfully");
+        navgate("/admin");
+      }).catch((error) => {
+        console.log(error);
+      })
+  };
+
+
+  return (
+    <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-full">
+      <div className="p-16">
+        <div className="w-full px-4 py-6">
+          <h1 className="text-3xl font-bold text-gray-800 mb-5 text-center">Add Product</h1>
+          <form onSubmit={onSubmit} method="POST" className="space-y-4">
+            <div>
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700">Tiêu đề</label>
+              <input
+                onChange={handlChange} type="text" name="title" id="title"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full h-12 shadow-sm sm:text-xl border-gray-300 rounded-md" />
+              {errorForm?.title && (
+                <span className="text-sm text-red-400">* {errorForm.title}</span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="thumbnail" className="block text-sm font-medium text-gray-700">Ảnh đại diện</label>
+              <input
+                onChange={handlChange} type="text" name="thumbnail" id="thumbnail"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full h-12 shadow-sm sm:text-xl border-gray-300 rounded-md" />
+              {errorForm?.thumbnail && (
+                <span className="text-sm text-red-400">* {errorForm.thumbnail}</span>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="price" className="block text-sm font-medium text-gray-700">Giá</label>
+              <input
+                onChange={handlChange} type="number" name="price" id="price"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full h-12 shadow-sm sm:text-xl border-gray-300 rounded-md" />
+              {errorForm?.price && (
+                <span className="text-sm text-red-400">* {errorForm.price}</span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="discountPercentage" className="block text-sm font-medium text-gray-700">Phần trăm giảm giá</label>
+              <input
+                onChange={handlChange} type="number" name="discountPercentage" id="discountPercentage"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full h-12 shadow-sm sm:text-xl border-gray-300 rounded-md" />
+              {errorForm?.discountPercentage && (
+                <span className="text-sm text-red-400">* {errorForm.discountPercentage}</span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="rating" className="block text-sm font-medium text-gray-700">Đánh giá</label>
+              <input
+                onChange={handlChange} type="number" name="rating" id="rating"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full h-12 shadow-sm sm:text-xl border-gray-300 rounded-md" />
+              {errorForm?.rating && (
+                <span className="text-sm text-red-400">* {errorForm.rating}</span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="stock" className="block text-sm font-medium text-gray-700">Tồn kho</label>
+              <input
+                onChange={handlChange} type="number" name="stock" id="stock"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full h-12 shadow-sm sm:text-xl border-gray-300 rounded-md" />
+              {errorForm?.stock && (
+                <span className="text-sm text-red-400">* {errorForm.stock}</span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Thương hiệu</label>
+              <input
+                onChange={handlChange} type="text" name="brand" id="brand"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full h-12 shadow-sm sm:text-xl border-gray-300 rounded-md" />
+              {errorForm?.brand && (
+                <span className="text-sm text-red-400">* {errorForm.brand}</span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700">Danh mục</label>
+              <select
+            onChange={handlChange}
+            name="category"
+            className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            id=""
+          >
+            {category.map((cate)=>(
+              <option key={cate._id} value={cate._id}>{cate.name}</option>
+            ))}
+          </select>
+              {errorForm?.category && (
+                <span className="text-sm text-red-400">* {errorForm.category}</span>
+              )}
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Image</label>
+              <textarea
+                id="images"
+                name="images"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-vl border-gray-300 rounded-md"
+                value={addForm.images?.join('\n')} // Chuyển đổi mảng thành một chuỗi, mỗi phần tử cách nhau bởi dấu xuống dòng
+                onChange={handlChange}
+              ></textarea>
+              {errorForm?.images && (
+                <span className="text-sm text-red-400">* {errorForm.images}</span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700">Mô tả</label>
+              <textarea
+                onChange={handlChange} name="description" id="description" rows={3}
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full h-12 shadow-sm sm:text-xl border-gray-300 rounded-md" defaultValue={""} />
+              {errorForm?.description && (
+                <span className="text-sm text-red-400">* {errorForm.description}</span>
+              )}
+            </div>
+            <div className="flex justify-end">
+              <button type="submit" className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600">Thêm sản phẩm</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
   )
 }
 
-export default ProductAdd
+export default AddProduct
