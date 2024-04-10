@@ -1,7 +1,7 @@
 
 import { useContext, useState } from 'react';
 import productType, { menu } from '../interface/product';
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { CountCT } from '../layouts/layout';
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
@@ -22,7 +22,18 @@ type Props = {
 const Header = (Props: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<productType[]>([]);
-
+//Logout
+  const navigate = useNavigate()
+const logout = () =>{
+    sessionStorage.removeItem("user");
+    navigate("/");
+  }
+  const handleLogout = () => {
+    if (window.confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+      logout();
+    }
+  };
+//Search
   const handleSearchChange = (event:any) => {
     setSearchTerm(event.target.value);
   };
@@ -35,6 +46,7 @@ const Header = (Props: Props) => {
       console.error('Error searching for products:', error);
     }
   };
+
   const [state, setState] = useContext(CountCT) as any
   return (
     <>
@@ -60,6 +72,7 @@ const Header = (Props: Props) => {
                 <button type="button" onClick={() => { setState({ type: 'login' }) }}>Login</button>
                 <button type="button" onClick={() => { setState({ type: 'register' }) }}>Register</button>
                 <button type="button" onClick={() => { setState({ type: 'reset' }) }}>Reset</button>
+                <button onClick={handleLogout}>Logout</button>
               </>
             </div>
           </div>

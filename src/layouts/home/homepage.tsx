@@ -7,12 +7,12 @@ import Banner from '../../components/Banner'
 
 const Homepage = () => {
   return (
-    <>
+    <div className='container'>
     <ProductSlideshow/>
     <ListProduct/>
     <Banner/>
     <ListProduct/>
-    </>
+    </div>
   )
 }
 export default Homepage
