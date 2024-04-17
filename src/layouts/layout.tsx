@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { createContext, useReducer, useState } from "react";
 import Login from "../components/user/login";
 import Register from "../components/user/register";
+import Headers from "../components/Headers";
 export const CountCT = createContext([] as any) ;
 const Layout = () => {
     // const [count , setCount] = useState(0)
@@ -24,7 +25,7 @@ const Layout = () => {
     return (
         <>
         <CountCT.Provider value={[state,setState]}>
-        <Header menu={[]}/>
+        <Headers/>
             <Outlet/>
         <Footer/>
         </CountCT.Provider>

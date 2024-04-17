@@ -112,8 +112,6 @@ const logout = () =>{
           to={`details/${product._id}`}
           key={product._id}
         >
-         
-
           <div className="flex items-center gap-3 hover:bg-gray-400">
             <img className="h-10 w-10" src={product.thumbnail} />
             <div>

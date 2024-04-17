@@ -28,7 +28,7 @@ function App() {
     <Routes>
       <Route path='/' Component={Layout}>
         <Route index Component={Homepage}></Route>
-        <Route path='details/:id' Component={Details}></Route>
+        <Route path='details/:id' Component={Details}></Route>+
         <Route path='products/details/:id' Component={Details}></Route>
         <Route path='category/details/:id' Component={Details}></Route>
         <Route path='demo' Component={TemlateDemo}></Route>

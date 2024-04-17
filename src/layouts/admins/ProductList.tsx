@@ -86,7 +86,7 @@ const ProductList = () => {
                 <Popconfirm
                   title="Delete the task"
                   description="Are you sure to delete this task?"
-                  onConfirm={() => DeleteProduct(item._id as string)}
+                  onConfirm={() => delProduct(item._id as string)}
                   okText="Yes"
                   cancelText="No"
                   okType={"danger"}

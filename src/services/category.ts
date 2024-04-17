@@ -1,8 +1,8 @@
-import { axiosservice } from "../confs/axiosconf";
+import { https } from "../confs/axiosconf";
 
 export const getAllCategory = async()=>{
     try {
-        const {data} = await axiosservice.get('/category');
+        const {data} = await https.get('/category');
         console.log(data);
         
         return data;

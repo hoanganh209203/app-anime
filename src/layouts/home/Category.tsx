@@ -39,11 +39,24 @@ const Category = (props: Props) => {
   return (
     <>
 
-<div className="font-[sans-serif] w-max mx-auto bg-white border-2 border-blue-500 rounded-lg overflow-hidden flex m-4">
+{/* <div className="font-[sans-serif] w-max mx-auto bg-white border-2 border-blue-500 rounded-lg overflow-hidden flex m-4">
       {categories.map((pro) => (
   <button onClick={() => handleCategoryClick(pro._id)} type="button" className="px-6 py-2.5 text-[#333] text-sm tracking-wider font-semibold border-r-2 border-blue-500 outline-none hover:bg-gray-100 active:bg-gray-200">{pro.name}</button>
 ))}
+</div> */}
+<div className="mt-5 font-[sans-serif] w-max mx-auto bg-white border-2 border-[#333] flex rounded overflow-hidden">
+{categories.map((pro) => (
+  <button onClick={() => handleCategoryClick(pro._id)} type="button" className="px-6 py-2.5 flex items-center text-[#333] text-sm tracking-wider font-semibold border-r-2 border-[#333] outline-none hover:text-white hover:bg-[#333] active:bg-[#111] transition-all">
+    {pro.name}
+  </button>
+
+))}
 </div>
+
+
+
+
+
 
 <div className="grid grid-cols-4 gap-8 mt-8 container">
         {products.map((item) => (

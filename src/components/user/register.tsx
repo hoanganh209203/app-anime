@@ -2,7 +2,9 @@ import React, { useContext, useState } from 'react'
 import { CountCT } from '../../layouts/layout'
 import { IoClose } from "react-icons/io5";
 import { onRegister } from '../../services/auth';
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
+  const naigate = useNavigate()
   const [state, setState] = useContext(CountCT) as any
   const [name,setName] = useState<string>('')
   const [email,setEmail] = useState<string>('')
@@ -14,6 +16,7 @@ const Register = () => {
     const user = await onRegister({name,email,password,confirmPassword})
     if (user!==null){
       alert('Đăng ký thành công')
+      naigate('login')
     }
     else {
       alert('Đăng ký không thành công')
