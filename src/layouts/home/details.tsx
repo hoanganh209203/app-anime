@@ -13,8 +13,8 @@ type Props = {
 const Details = (_props: Props) => {
   const params: any = useParams();
   const [product, setProduct] = useState<productType | null>(null);
+  const id: string = params.id;
   useEffect(() => {
-    const id: string = params.id;
     console.log(id);
     
     (async()=>{
@@ -22,7 +22,7 @@ const Details = (_props: Props) => {
       setProduct(product);
    })();
 
-  }, [])
+  }, [id])
   return (
     <>
       <section className="">

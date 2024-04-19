@@ -12,9 +12,9 @@ export default interface productType {
         name: string,
     },
     thumbnail: string,
-    images?: string[]
+    images?: string[],
+    quanlity: number
 }
-
 
 export type menu = {
     slug: string,

@@ -6,9 +6,13 @@ import { productService } from "../services/products";
 import productType from "../interface/product";
 import { CountCT } from "../layouts/layout";
 import { IoLogOutOutline } from "react-icons/io5";
+import { Drawer } from 'antd';
+import { useSelector } from "react-redux";
+import { RootState } from "../redux-toolkit/store/store";
 const Headers = () => {
     const [state, setState] = useContext(CountCT) as any
     const navigate = useNavigate()
+    const carts = useSelector((state: RootState) => state.cart)
 
     const userToken = sessionStorage.getItem('user');
 
@@ -50,6 +54,20 @@ const Headers = () => {
       setProducts(null);
     }
   };
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+  
+
+  const totle = carts.reduce((accumulator, currentValue) => accumulator + currentValue.price,
+  0,)
+  
   return (
     <header>
       <div className="mx-auto container flex items-center justify-between py-3">
@@ -333,6 +351,7 @@ const Headers = () => {
                 <span>Wishlist</span>
               </div>
               <div className="flex flex-col items-center">
+                
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width={24}
@@ -357,7 +376,7 @@ const Headers = () => {
                     fill="#292D32"
                   />
                 </svg>
-                <span>Cart</span>
+                <button onClick={showDrawer}>Cart<sup className="rounded-[50%] bg-red-700 text-slate-50 p-1 ">{carts.length}</sup></button>
               </div>
               <div className="flex flex-col items-center">
                 <svg
@@ -385,6 +404,32 @@ const Headers = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+      
+      <Drawer title="My Cart" onClose={onClose} open={open}>
+
+        {carts.map((item)=>{
+          return (
+          
+            <div className="flex items-center gap-3">
+                                <img className="h-10 w-10" src={item.thumbnail} />
+                                <div>
+                                  <h2>{item.title}</h2>
+                                  <p>Quanlily:{item.quanlity}</p>
+                                  <p>${item.price}</p>
+                                </div>
+                              </div>
+      
+              
+              )
+              
+        })}
+        <div><h1>Totle:${totle}</h1></div>
+        <button className="w-full py-2 rounded border border-black">
+                    Mua hang
+                </button>
+      </Drawer>
       </div>
     </header>
   );

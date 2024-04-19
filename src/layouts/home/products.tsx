@@ -19,7 +19,7 @@ const ProductPage = (props: Props) => {
           setProducts(products);
        })();
     },[])
-console.log(products);
+
     //?skip=${(page-1)*9}&limit=9 
     return (
         <div className="grid grid-cols-4 gap-8 mt-8 container">

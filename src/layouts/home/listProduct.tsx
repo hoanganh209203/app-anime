@@ -3,22 +3,45 @@ import productType from '../../interface/product';
 import { Link, NavLink } from 'react-router-dom';
 import { getAllProduct } from '../../services/products';
 
+import {useSelector,useDispatch} from 'react-redux'
+import { RootState } from '../../redux-toolkit/store/store';
+import { addToCart } from '../../redux-toolkit/action/cartSlice';
+
+
+
 const formatNumber = (number: { toString: () => string; }) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 const ListProduct = () => {
 
-    const [products, setProducts] = useState<productType[]>([])
 
- 
+    const [products, setProducts] = useState<productType[]>([])
+    const cart = useSelector((state: RootState) => state.cart)
+    const dispatch = useDispatch()
+
     useEffect(() => {
         (async()=>{
           const products:productType[] = await getAllProduct();
           setProducts(products);
        })();
     },[])
-console.log(products);
 
+    
+    const onAddCarthandler = (product : any) =>{
+     
+        const isProductCart = cart.some((item) => item._id === product._id);
+        if(!isProductCart){
+            dispatch(addToCart({...product,quanlity:1}))
+            
+        }else{
+            alert('San pham da co trong cart')
+        }
+        
+    }
+    console.log(cart);
+    useEffect(()=>{
+        
+    },[cart])
     //?skip=${(page-1)*9}&limit=9 
     return (
         <>
@@ -37,7 +60,9 @@ console.log(products);
                         </div>
                         <p>{item.category?.name}</p>
                     </div>
-                    <button className="w-full py-2 rounded border border-black">
+                    <button
+                    onClick={()=> onAddCarthandler(item)}
+                    className="w-full py-2 rounded border border-black">
                         Add to cart
                     </button>
                 </div>

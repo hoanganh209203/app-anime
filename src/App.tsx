@@ -16,13 +16,13 @@ import Category from './layouts/home/Category';
 function App() {
   let userLogin = false;
   let userinfo = sessionStorage.getItem("user")
-    userinfo = JSON.parse(userinfo as any) 
-    console.log(userinfo);     
-    if (userinfo===null) {
-      userLogin = false
+  console.log(userinfo);     
+  if (userinfo) {
+      userinfo = JSON.parse(userinfo) 
+      userLogin = true
     }
     else {
-      userLogin = true
+      userLogin = false
     }
   return (
     <Routes>

@@ -4,9 +4,7 @@ import productType from '../interface/product';
 
 export const getAllProduct = async()=>{
 try {
-    const {data} = await https.get('/products');
-    console.log(data);
-    
+    const {data} = await https.get('/products');    
     return data;
 } catch (error) {
     console.log(error);
